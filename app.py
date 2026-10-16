@@ -49,11 +49,17 @@ def upload_to_drive(file_path, file_name):
         print(f"Error uploading to Drive: {e}")
         return None
 
+@app.route('/', methods=['GET'])
+def home():
+    """صفحة رئيسية بسيطة لتأكيد أن السيرفر يعمل وفي حالة إيقاظ (Live)"""
+    return "YouTube Uploader Server is Running 24/7 successfully!", 200
+
 @app.route('/download-yt', methods=['POST'])
 def download_youtube():
     """نقطة النهاية (API) التي يستقبل من خلالها موقعك رابط اليوتيوب"""
     data = request.json
     yt_url = data.get('url')
+
     
     if not yt_url:
         return jsonify({'success': False, 'error': 'No URL provided'}), 400
